@@ -1,0 +1,144 @@
+###########
+# LLK equation: continuation for heteroclinic and homoclinic orbits
+# in (c,mu)-plane
+###########
+
+clean()
+
+#######################################################
+# Continuation for back TW from Allen-Cahn-Nagumo to LLK
+###########
+# PH = 0 -> 1
+run(e='back', c='acn.0', NUNSTAB=1, NSTAB=1 ,IEQUIB=-2 ,ITWIST=0 ,ISTART=2)
+sv('acn')
+
+###########
+# Continuation for back TW in LLK
+###########
+
+# PC = c1->cM
+run(e='back', c='acn.1', s='acn', NUNSTAB=1, NSTAB=1 ,IEQUIB=-2 ,ITWIST=0 ,ISTART=2, NMX=381)
+ap('acn')
+sv('bd')
+
+# PC = c1->cM
+run(e='back', c='acn.1', s='acn', DS=-0.0001, NUNSTAB=1, NSTAB=1 ,IEQUIB=-2 ,ITWIST=0 ,ISTART=2, NMX=547)
+ap('bd')
+rl('bd')
+merge('bd')
+
+#plot('bd')
+#wait()
+
+clean()
+
+#######################################################
+# Continuation for front TW from Allen-Cahn-Nagumo to LLK
+###########
+
+# PH = 0 -> 1
+run(e='front', c='acn.0', NUNSTAB=1, NSTAB=1 ,IEQUIB=-2 ,ITWIST=0 ,ISTART=2)
+sv('acn')
+
+###########
+# Continuation for front TW in LLK
+###########
+
+# PC = c1->cM
+run(e='front', c='acn.1', s='acn', NUNSTAB=1, NSTAB=1 ,IEQUIB=-2 ,ITWIST=0 ,ISTART=2, NMX=304)
+ap('acn')
+ap('bd')
+
+# PC = c1->cM
+run(e='front', c='acn.1', s='acn', DS=-0.0001, NUNSTAB=1, NSTAB=1 ,IEQUIB=-2 ,ITWIST=0 ,ISTART=2, NMX=621)
+ap('bd')
+rl('bd')
+merge('bd')
+
+#plot('bd')
+#wait()
+
+clean()
+
+#######################################################
+# Continuation for homoclinic_0 TW from Allen-Cahn-Nagumo to LLK
+###########
+
+# PH = 0 -> 1
+run(e='hom0', c='acnh.0', NUNSTAB=1, NSTAB=1 ,IEQUIB=1 ,ITWIST=0 ,ISTART=2)
+sv('acn')
+
+###########
+# Continuation for homoclinic0 TW in LLK
+###########
+
+# PC = c1->cM
+run(e='hom0', c='acnh.1', s='acn', NUNSTAB=1, NSTAB=1 ,IEQUIB=1 ,ITWIST=0 ,ISTART=2, NMX=133)
+ap('acn')
+ap('bd')
+
+# PC = c1->cM
+run(e='hom0', c='acnh.1', s='acn', DS=-0.0001, NUNSTAB=1, NSTAB=1 ,IEQUIB=1 ,ITWIST=0 ,ISTART=2, NMX=46)
+ap('bd')
+rl('bd')
+merge('bd')
+clean()
+
+#plot('bd')
+#wait()
+
+clean()
+
+#######################################################
+# Continuation for homoclinic_1 TW from Allen-Cahn-Nagumo to LLK
+###########
+
+# PH = 0 -> 1
+run(e='hom1', c='acnh.0', NUNSTAB=1, NSTAB=1 ,IEQUIB=1 ,ITWIST=0 ,ISTART=2)
+sv('acn')
+
+# PC = c1->cM
+run(e='hom1', c='acnh.1', s='acn', NUNSTAB=1, NSTAB=1 ,IEQUIB=1 ,ITWIST=0 ,ISTART=2, NMX=66)
+ap('acn')
+ap('bd')
+
+# PC = c1->cM
+run(e='hom1', c='acnh.1', s='acn', DS=-0.0001, NUNSTAB=1, NSTAB=1 ,IEQUIB=1 ,ITWIST=0 ,ISTART=2, NMX=149)
+ap('bd')
+rl('bd')
+merge('bd')
+clean()
+
+plot('bd')
+wait()
+
+#######################################################
+# Hopf bifurcation paramter search
+###########
+
+print("# Continuation of equilibria left")
+prb1 = load(e='acn1', c='acn.h')
+eq = run(prb1)
+save(eq,'acn1')
+
+print("# Continuation of equilibria right")
+prb2 = load(e='acn2', c='acn.h')
+eq = run(prb2)
+save(eq,'acn2')
+
+print("# parameter analysis left")
+eq1 = loadbd('acn1',UZR={})
+hb1 = run(eq1('HB1'),ISW=2,ICP=[1,9],DSMAX=1.0,DSMIN=1e-5,UZSTOP={1:[-1,1]})
+hb1m = run(eq1('HB1'),ISW=2,ICP=[1,9],DSMAX=1.0,DSMIN=1e-5,DS='-',UZSTOP={1:[-1,1]})
+hb1 = relabel(merge(hb1+hb1m))
+append(hb1,'bd')
+
+print("# parameter analysis right")
+eq2 = loadbd('acn2',UZR={})
+hb2 = run(eq2('HB1'),ISW=2,ICP=[1,9],DSMAX=1.0,DSMIN=1e-5,UZSTOP={1:[-1,1]})
+hb2m = run(eq2('HB1'),ISW=2,ICP=[1,9],DSMAX=1.0,DSMIN=1e-5,DS='-',UZSTOP={1:[-1,1]})
+hb2 = relabel(merge(hb2+hb2m))
+append(hb2,'bd')
+plot('bd')
+wait()
+clean()

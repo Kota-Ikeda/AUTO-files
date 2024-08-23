@@ -1,0 +1,8 @@
+Continuation for TW solutions by the SHOOTING PARAMETER mu PAR(1)
+
+(0) Continuation from ACN to the LLK equation (homotopy parameter PH)
+(1) Continuation by parameter c¥in(c_1,c_M)
+
+command script:
+%auto run.auto
+ 

@@ -1,0 +1,8 @@
+Continuation for TW solutions by the SHOOTING PARAMETER K
+
+(0) Continuation from Allen-Cahn-Nagumo to LeeLeeKim equation (homotopy parameter PH)
+(1) Continuation by parameter PLAM -> 2.0
+(2) Continuation by parameter c¥in(c_1,c_M)
+
+command script:
+%auto run.auto

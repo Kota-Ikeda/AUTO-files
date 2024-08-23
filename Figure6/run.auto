@@ -1,0 +1,132 @@
+###########
+# LLK equation: continuation for heteroclinic and homoclinic orbits
+# in (c,K)-plane
+###########
+
+clean()
+
+#######################################################
+# Continuation for back TW from Allen-Cahn-Nagumo to LLK
+###########
+# PH = 0 -> 1
+run(e='back0', c='acn.0', NUNSTAB=1, NSTAB=1 ,IEQUIB=-2 ,ITWIST=0 ,ISTART=2)
+sv('acn')
+#plot('acn')
+#wait()
+
+###########
+# Continuation for back TW in LLK
+###########
+# PLAM = UNKNOWN -> 2.0
+run(e='back1', c='acn.1', s='acn', NUNSTAB=1, NSTAB=1 ,IEQUIB=-2 ,ITWIST=0 ,ISTART=2)
+ap('acn')
+#plot('acn')
+#wait()
+
+# PC = c1->cM
+run(e='back1', c='acn.2', s='acn', NUNSTAB=1, NSTAB=1 ,IEQUIB=-2 ,ITWIST=0 ,ISTART=2)
+ap('acn')
+sv('bd')
+
+# PC = c1->cM
+run(e='back1', c='acn.2', s='acn', DS=-0.0001, NUNSTAB=1, NSTAB=1 ,IEQUIB=-2 ,ITWIST=0 ,ISTART=2)
+ap('bd')
+rl('bd')
+merge('bd')
+clean()
+
+#plot('bd')
+#wait()
+
+#######################################################
+# Continuation for front TW from Allen-Cahn-Nagumo to LLK
+###########
+
+# PH = 0 -> 1
+run(e='front0', c='acnf.0', NUNSTAB=1, NSTAB=1 ,IEQUIB=-2 ,ITWIST=0 ,ISTART=2)
+sv('acn')
+#plot('acn')
+#wait()
+
+# PLAM = UNKNOWN -> 2.0
+run(e='front1', c='acnf.1', s='acn', NUNSTAB=1, NSTAB=1 ,IEQUIB=-2 ,ITWIST=0 ,ISTART=2)
+ap('acn')
+#plot('acn')
+#wait()
+
+# PC = c1->cM
+run(e='front1', c='acnf.2', s='acn', NUNSTAB=1, NSTAB=1 ,IEQUIB=-2 ,ITWIST=0 ,ISTART=2)
+ap('acn')
+ap('bd')
+
+# PC = c1->cM
+run(e='front1', c='acnf.2', s='acn', DS=-0.0001, NUNSTAB=1, NSTAB=1 ,IEQUIB=-2 ,ITWIST=0 ,ISTART=2)
+ap('bd')
+rl('bd')
+merge('bd')
+
+plot('bd')
+wait()
+clean()
+
+#######################################################
+# Continuation for homoclinic_0 TW from Allen-Cahn-Nagumo to LLK
+###########
+
+# PH = 0 -> 1
+run(e='hom0', c='acnh0.0', NUNSTAB=1, NSTAB=1 ,IEQUIB=1 ,ITWIST=0 ,ISTART=2)
+sv('acn')
+#plot('acn')
+#wait()
+
+# PLAM = UNKNOWN -> 2.0
+run(e='hom1', c='acnh0.1', s='acn', NUNSTAB=1, NSTAB=1 ,IEQUIB=1 ,ITWIST=0 ,ISTART=2)
+ap('acn')
+#plot('acn')
+#wait()
+
+# PC = c1->cM
+run(e='hom1', c='acnh0.2', s='acn', NUNSTAB=1, NSTAB=1 ,IEQUIB=1 ,ITWIST=0 ,ISTART=2)
+ap('acn')
+ap('bd')
+
+# PC = c1->cM
+run(e='hom1', c='acnh0.2', s='acn', DS=-0.0001, NUNSTAB=1, NSTAB=1 ,IEQUIB=1 ,ITWIST=0 ,ISTART=2)
+ap('bd')
+rl('bd')
+merge('bd')
+
+#plot('bd')
+#wait()
+clean()
+
+#######################################################
+# Continuation for homoclinic_1 TW from Allen-Cahn-Nagumo to LLK
+###########
+
+# PH = 0 -> 1
+run(e='hom10', c='acnh1.0', NUNSTAB=1, NSTAB=1 ,IEQUIB=1 ,ITWIST=0 ,ISTART=2)
+sv('acn')
+#plot('acn')
+#wait()
+
+# PLAM = UNKNOWN -> 2.0
+run(e='hom11', c='acnh1.1', s='acn', NUNSTAB=1, NSTAB=1 ,IEQUIB=1 ,ITWIST=0 ,ISTART=2)
+ap('acn')
+#plot('acn')
+#wait()
+
+# PC = c1->cM
+run(e='hom11', c='acnh1.2', s='acn', NUNSTAB=1, NSTAB=1 ,IEQUIB=1 ,ITWIST=0 ,ISTART=2, NMX=82)
+ap('acn')
+ap('bd')
+
+# PC = c1->cM
+run(e='hom11', c='acnh1.2', s='acn', DS=-0.0001, NUNSTAB=1, NSTAB=1 ,IEQUIB=1 ,ITWIST=0 ,ISTART=2)
+ap('bd')
+rl('bd')
+merge('bd')
+
+plot('bd')
+wait()
+clean()

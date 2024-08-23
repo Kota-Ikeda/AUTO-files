@@ -1,1 +1,0 @@
-This directory contains the AUTO files to produce Figure 4, 5, 6 of the article "Existence of traveling wave solutions in continuous optimal velocity models" by Kota Ikeda, Toru Kan, and Toshiyuki Ogawa. All branches of the traveling wave solutions can be illustrated by using the numerical continuation package HomCont/AUTO for heteroclinic, homoclinic, and periodic orbits. 
